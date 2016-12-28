@@ -1,12 +1,12 @@
 //
-//  NSException+YU.m
+//  NSException+YUException.m
 //  YUKit<https://github.com/c6357/YUException>
 //
 //  Created by BruceYu on 15/9/1.
 //  Copyright (c) 2015年 BruceYu. All rights reserved.
 //
 
-#import "NSException+YU.h"
+#import "NSException+YUException.h"
 #import <objc/runtime.h>
 #import "NSDictionary+YUException.h"
 #import "NSString+YUException.h"
@@ -16,13 +16,29 @@
 #import "NSObject+YULog.h"
 #import "UncaughtExceptionHandler.h"
 
-@implementation NSException (YU)
+@implementation NSException (YUException)
 
-+(void)install:(void(^)(NSException *unknownException, BOOL*dismissed))unknownException{
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        @autoreleasepool {
+            [self install];
+        }
+    });
+}
+
+
++(void)install{
     
-    [NSMethodSignature install];
+    [UncaughtExceptionHandler install];
     
-    [UncaughtExceptionHandler install:unknownException];
+}
+
+
+
++(void)unknownException:(void(^)(NSException *unknownException, BOOL*dismissed))unknownException{
+    
+    [UncaughtExceptionHandler unknownException:unknownException];
 }
 @end
 

@@ -34,9 +34,7 @@ void SignalHandler(int signal);
 void InstallUncaughtExceptionHandler(void);
 
 
-@interface UncaughtExceptionHandler(){
-    BOOL dismissed;
-}
+@interface UncaughtExceptionHandler()
 @property (nonatomic,assign)BOOL dismissed;
 @property (copy, nonatomic) void(^unknownException)(NSException *unknownException, BOOL*dismissed);
 @end
@@ -56,10 +54,11 @@ void InstallUncaughtExceptionHandler(void);
     return share;
 }
 
-
-+(void)install:(void(^)(NSException *unknownException, BOOL *dismissed))unknownException {
-    
++(void)install{
     InstallUncaughtExceptionHandler();
+}
+
++(void)unknownException:(void(^)(NSException *unknownException, BOOL *dismissed))unknownException {
     
     [UncaughtExceptionHandler sharedInstance].unknownException = unknownException;
 }
@@ -100,8 +99,14 @@ void InstallUncaughtExceptionHandler(void);
     if (self.unknownException) {
         self.unknownException(exception,&_dismissed);
     }else{
-        
-
+        UIAlertView *alert =
+        [[UIAlertView alloc]
+         initWithTitle:@"程序错误"
+         message:[exception reason]
+         delegate:self
+         cancelButtonTitle:nil
+         otherButtonTitles:nil, nil];
+        [alert show];
     }
 } 
 - (void)handleException:(NSException *)exception
@@ -123,14 +128,7 @@ void InstallUncaughtExceptionHandler(void);
 //     delegate:self
 //     cancelButtonTitle:NSLocalizedString(@"Quit", nil)
 //     otherButtonTitles:NSLocalizedString(@"Continue", nil), nil];
-    UIAlertView *alert =
-    [[UIAlertView alloc]
-     initWithTitle:@"程序错误"
-     message:[exception reason]
-     delegate:self
-     cancelButtonTitle:nil
-     otherButtonTitles:nil, nil];
-    [alert show];
+
     
     
 	while (!_dismissed)

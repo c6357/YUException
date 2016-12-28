@@ -8,7 +8,7 @@
 
 #import "NSDictionary+YUException.h"
 #import <objc/runtime.h>
-#import "NSException+YU.h"
+#import "NSException+YUException.h"
 
 @implementation NSDictionary (YUException)
 

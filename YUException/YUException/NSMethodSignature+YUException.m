@@ -10,9 +10,18 @@
 #import "NSMethodSignature+YUException.h"
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
-#import "NSException+YU.h"
+#import "NSException+YUException.h"
 
-@implementation NSMethodSignature (YU)
+@implementation NSMethodSignature (YUException)
+
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        @autoreleasepool {
+            [self install];
+        }
+    });
+}
 
 +(void)install{
     

@@ -7,14 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "NSException+YU.h"
+#import "NSException+YUException.h"
 #import "UncaughtExceptionHandler.h"
 
-@interface AppDelegate ()
-@end
-
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -24,10 +20,8 @@
     self.window.rootViewController = [UIViewController new];
     
     
-#if 1
-    [NSException install:nil];
-#else
-    [NSException install:^(NSException *unknownException,BOOL *dismissed) {
+#if 0
+    [NSException unknownException:^(NSException *unknownException,BOOL *dismissed) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unhandled exception", nil) message:[NSString stringWithFormat:NSLocalizedString(
                                                                                                                                                                                              @"You can try to continue but the application may be unstable.\n\n"

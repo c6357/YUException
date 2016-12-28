@@ -9,8 +9,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSMethodSignature (YU)
-
-+(void)install;
+@interface NSMethodSignature (YUException)
 
 @end

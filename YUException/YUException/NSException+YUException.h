@@ -1,5 +1,5 @@
 //
-//  NSException+YU.h
+//  NSException+YYUException.h
 //  YUKit<https://github.com/c6357/YUException>
 //
 //  Created by BruceYu on 15/9/1.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface NSException (YU)
+@interface NSException (YUException)
 
-+(void)install:(void(^)(NSException *unknownException, BOOL*dismissed))unknownException;
++(void)unknownException:(void(^)(NSException *unknownException, BOOL*dismissed))unknownException;
 
 @end
 

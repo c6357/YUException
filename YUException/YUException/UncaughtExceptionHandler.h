@@ -22,7 +22,9 @@
 	
 }
 
-+(void)install:(void(^)(NSException *unknownException, BOOL*dismissed))unknownException;
++(void)install;
+
++(void)unknownException:(void(^)(NSException *unknownException, BOOL*dismissed))unknownException;
 
 @end
 
